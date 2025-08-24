@@ -1,5 +1,5 @@
 {% comment %}
-  Popup Product Modal Snippet
+  Modern Popup Product Modal Snippet
   Features:
   - Product details display
   - Dynamic variant selection
@@ -7,42 +7,65 @@
   - Mobile responsive
   - Close on outside click or X button
   - Enhanced variant handling
+  - Modern design with glassmorphism effects
 {% endcomment %}
 
-<div id="product-popup" class="product-popup" style="display: none;">
-  <div class="product-popup__overlay"></div>
-  <div class="product-popup__content">
-    <button class="product-popup__close" onclick="closeProductPopup()">
-      <span>&times;</span>
+<div id="product-popup" class="modern-popup" style="display: none;">
+  <div class="modern-popup__overlay"></div>
+  <div class="modern-popup__content">
+    <button class="modern-popup__close" onclick="closeProductPopup()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 6 6 18"></path>
+        <path d="m6 6 12 12"></path>
+      </svg>
     </button>
     
-    <div class="product-popup__body">
-      <div class="product-popup__image">
-        <img id="popup-product-image" src="" alt="">
+    <div class="modern-popup__body">
+      <div class="modern-popup__image-section">
+        <div class="modern-popup__image-container">
+          <img id="popup-product-image" src="" alt="" class="modern-popup__image">
+        </div>
       </div>
       
-      <div class="product-popup__details">
-        <h2 id="popup-product-title" class="product-popup__title"></h2>
-        <div id="popup-product-price" class="product-popup__price"></div>
-        <div id="popup-product-description" class="product-popup__description"></div>
+      <div class="modern-popup__details">
+        <div class="modern-popup__header">
+          <h2 id="popup-product-title" class="modern-popup__title"></h2>
+          <div id="popup-product-price" class="modern-popup__price"></div>
+        </div>
         
-        <form id="popup-product-form" class="product-popup__form">
+        <div id="popup-product-description" class="modern-popup__description"></div>
+        
+        <form id="popup-product-form" class="modern-popup__form">
           <input type="hidden" id="popup-product-id" name="id" value="">
           
-          <div id="popup-variant-selectors" class="product-popup__variants">
+          <div id="popup-variant-selectors" class="modern-popup__variants">
             <!-- Variant selectors will be dynamically populated -->
           </div>
           
-          <div class="product-popup__quantity">
-            <label for="popup-quantity">Quantity:</label>
-            <div class="product-popup__quantity-controls">
-              <button type="button" class="product-popup__quantity-btn" onclick="changeQuantity(-1)">-</button>
-              <input type="number" id="popup-quantity" name="quantity" value="1" min="1" max="99">
-              <button type="button" class="product-popup__quantity-btn" onclick="changeQuantity(1)">+</button>
+          <div class="modern-popup__quantity">
+            <label for="popup-quantity" class="modern-popup__quantity-label">Quantity</label>
+            <div class="modern-popup__quantity-controls">
+              <button type="button" class="modern-popup__quantity-btn" onclick="changeQuantity(-1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M5 12h14"></path>
+                </svg>
+              </button>
+              <input type="number" id="popup-quantity" name="quantity" value="1" min="1" max="99" class="modern-popup__quantity-input">
+              <button type="button" class="modern-popup__quantity-btn" onclick="changeQuantity(1)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 5v14"></path>
+                  <path d="M5 12h14"></path>
+                </svg>
+              </button>
             </div>
           </div>
           
-          <button type="submit" class="product-popup__add-to-cart">
+          <button type="submit" class="modern-popup__add-to-cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4"></path>
+              <path d="M21 12c-1 0-4-1-4-4V4H7v4c0 3-3 4-4 4"></path>
+              <path d="M3 5h18l-2 14H5L3 5z"></path>
+            </svg>
             Add to Cart
           </button>
         </form>
@@ -52,7 +75,7 @@
 </div>
 
 <style>
-  .product-popup {
+  .modern-popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -62,7 +85,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.4s ease-out;
   }
   
   @keyframes fadeIn {
@@ -74,32 +97,34 @@
     }
   }
   
-  .product-popup__overlay {
+  .modern-popup__overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     cursor: pointer;
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(8px);
   }
   
-  .product-popup__content {
+  .modern-popup__content {
     position: relative;
-    background: white;
-    border-radius: 12px;
-    max-width: 900px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    max-width: 1000px;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+    animation: slideIn 0.4s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
   }
   
   @keyframes slideIn {
     from {
-      transform: translateY(-20px) scale(0.95);
+      transform: translateY(-30px) scale(0.95);
       opacity: 0;
     }
     to {
@@ -108,146 +133,179 @@
     }
   }
   
-  .product-popup__close {
+  .modern-popup__close {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 20px;
+    right: 25px;
     background: rgba(255, 255, 255, 0.9);
     border: none;
-    font-size: 24px;
     cursor: pointer;
-    color: #666;
+    color: #4a5568;
     z-index: 10;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
   }
   
-  .product-popup__close:hover {
-    background-color: #f0f0f0;
-    transform: scale(1.1);
+  .modern-popup__close:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1) rotate(90deg);
+    color: #2d3748;
   }
   
-  .product-popup__body {
+  .modern-popup__body {
     display: flex;
-    padding: 30px;
-    gap: 30px;
+    padding: 40px;
+    gap: 40px;
   }
   
-  .product-popup__image {
-    flex: 0 0 300px;
+  .modern-popup__image-section {
+    flex: 0 0 400px;
   }
   
-  .product-popup__image img {
+  .modern-popup__image-container {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: #f7fafc;
+  }
+  
+  .modern-popup__image {
     width: 100%;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+    transition: transform 0.3s ease;
   }
   
-  .product-popup__details {
+  .modern-popup__image:hover {
+    transform: scale(1.05);
+  }
+  
+  .modern-popup__details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
   }
   
-  .product-popup__title {
-    font-size: 1.8rem;
-    font-weight: 700;
+  .modern-popup__header {
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 20px;
+  }
+  
+  .modern-popup__title {
+    font-size: 2rem;
+    font-weight: 800;
     margin: 0 0 15px 0;
-    color: #333;
+    color: #1a202c;
     line-height: 1.2;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
-  .product-popup__price {
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 20px;
+  .modern-popup__price {
+    font-size: 1.5rem;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
   
   .price-sale {
-    color: #dc3545;
+    color: #e53e3e;
   }
   
   .price-compare {
-    color: #999;
+    color: #a0aec0;
     text-decoration: line-through;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
   }
   
-  .product-popup__description {
-    margin-bottom: 25px;
-    line-height: 1.6;
-    color: #666;
-    font-size: 0.95rem;
+  .modern-popup__description {
+    line-height: 1.7;
+    color: #4a5568;
+    font-size: 1rem;
+    background: #f7fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
   }
   
-  .product-popup__variants {
-    margin-bottom: 20px;
-  }
-  
-  .product-popup__variant-group {
-    margin-bottom: 15px;
-  }
-  
-  .product-popup__variant-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .product-popup__variant-select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s ease;
-    background: white;
-  }
-  
-  .product-popup__variant-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-  }
-  
-  .product-popup__quantity {
-    margin-bottom: 25px;
-  }
-  
-  .product-popup__quantity label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #333;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .product-popup__quantity-controls {
+  .modern-popup__variants {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .modern-popup__variant-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .modern-popup__variant-label {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .modern-popup__variant-select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: white;
+    color: #2d3748;
+  }
+  
+  .modern-popup__variant-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+  
+  .modern-popup__quantity {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
   }
   
-  .product-popup__quantity-btn {
-    width: 40px;
-    height: 40px;
-    border: 2px solid #e0e0e0;
+  .modern-popup__quantity-label {
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .modern-popup__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #f7fafc;
+    padding: 8px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+  }
+  
+  .modern-popup__quantity-btn {
+    width: 45px;
+    height: 45px;
+    border: none;
     background: white;
-    border-radius: 6px;
+    border-radius: 10px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
@@ -255,57 +313,67 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .product-popup__quantity-btn:hover {
-    border-color: #007bff;
-    background: #f8f9fa;
+  .modern-popup__quantity-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
   
-  .product-popup__quantity-btn:active {
+  .modern-popup__quantity-btn:active {
     transform: scale(0.95);
   }
   
-  .product-popup__quantity input {
+  .modern-popup__quantity-input {
     width: 80px;
-    padding: 10px;
-    border: 2px solid #e0e0e0;
-    border-radius: 6px;
-    font-size: 14px;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
     text-align: center;
     font-weight: 600;
+    background: white;
+    color: #2d3748;
   }
   
-  .product-popup__quantity input:focus {
+  .modern-popup__quantity-input:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
   
-  .product-popup__add-to-cart {
+  .modern-popup__add-to-cart {
     width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    padding: 18px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
   }
   
-  .product-popup__add-to-cart:hover {
-    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+  .modern-popup__add-to-cart:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
   }
   
-  .product-popup__add-to-cart:disabled {
-    background: #ccc;
+  .modern-popup__add-to-cart:disabled {
+    background: #a0aec0;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -313,54 +381,57 @@
   
   /* Mobile Responsive */
   @media (max-width: 768px) {
-    .product-popup__content {
+    .modern-popup__content {
       width: 95%;
       max-height: 95vh;
     }
     
-    .product-popup__body {
+    .modern-popup__body {
       flex-direction: column;
-      padding: 20px;
-      gap: 20px;
+      padding: 25px;
+      gap: 25px;
     }
     
-    .product-popup__image {
+    .modern-popup__image-section {
       flex: none;
     }
     
-    .product-popup__title {
-      font-size: 1.5rem;
+    .modern-popup__title {
+      font-size: 1.6rem;
     }
     
-    .product-popup__price {
-      font-size: 1.2rem;
+    .modern-popup__price {
+      font-size: 1.3rem;
     }
     
-    .product-popup__close {
-      top: 10px;
-      right: 15px;
-      width: 35px;
-      height: 35px;
-      font-size: 20px;
+    .modern-popup__close {
+      top: 15px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+    }
+    
+    .modern-popup__quantity-controls {
+      gap: 10px;
+    }
+    
+    .modern-popup__quantity-btn {
+      width: 40px;
+      height: 40px;
     }
   }
   
   @media (max-width: 480px) {
-    .product-popup__body {
+    .modern-popup__body {
+      padding: 20px;
+    }
+    
+    .modern-popup__title {
+      font-size: 1.4rem;
+    }
+    
+    .modern-popup__add-to-cart {
       padding: 15px;
-    }
-    
-    .product-popup__title {
-      font-size: 1.3rem;
-    }
-    
-    .product-popup__quantity-controls {
-      gap: 8px;
-    }
-    
-    .product-popup__quantity-btn {
-      width: 35px;
-      height: 35px;
       font-size: 16px;
     }
   }
@@ -398,7 +469,7 @@
     
     // Focus on first input for accessibility
     setTimeout(() => {
-      const firstInput = document.querySelector('.product-popup__variant-select, #popup-quantity');
+      const firstInput = document.querySelector('.modern-popup__variant-select, #popup-quantity');
       if (firstInput) {
         firstInput.focus();
       }
@@ -443,14 +514,14 @@
       
       if (optionValues.length > 1) {
         const group = document.createElement('div');
-        group.className = 'product-popup__variant-group';
+        group.className = 'modern-popup__variant-group';
         
         const label = document.createElement('label');
-        label.className = 'product-popup__variant-label';
+        label.className = 'modern-popup__variant-label';
         label.textContent = optionName;
         
         const select = document.createElement('select');
-        select.className = 'product-popup__variant-select';
+        select.className = 'modern-popup__variant-select';
         select.dataset.optionIndex = index;
         
         // Add default option
@@ -539,7 +610,7 @@
   });
   
   // Close popup when clicking overlay
-  document.querySelector('.product-popup__overlay').addEventListener('click', closeProductPopup);
+  document.querySelector('.modern-popup__overlay').addEventListener('click', closeProductPopup);
   
   // Close popup with Escape key
   document.addEventListener('keydown', function(e) {
@@ -549,7 +620,7 @@
   });
   
   // Prevent popup from closing when clicking inside content
-  document.querySelector('.product-popup__content').addEventListener('click', function(e) {
+  document.querySelector('.modern-popup__content').addEventListener('click', function(e) {
     e.stopPropagation();
   });
 </script>

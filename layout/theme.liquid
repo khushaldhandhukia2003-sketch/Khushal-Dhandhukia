@@ -19,28 +19,42 @@
 </head>
 
 <body class="template-{{ template | split: '.' | first }}">
-  <!-- Header -->
-  <header class="site-header">
-    <div class="container">
-      <div class="header-content">
-        <div class="logo">
-          <a href="/">
-            <h1>{{ shop.name }}</h1>
+  <!-- Modern Header -->
+  <header class="modern-header">
+    <div class="modern-header__container">
+      <div class="modern-header__content">
+        <div class="modern-header__logo">
+          <a href="/" class="modern-header__logo-link">
+            <h1 class="modern-header__logo-text">{{ shop.name }}</h1>
           </a>
         </div>
         
-        <nav class="main-nav">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/collections">Collections</a></li>
-            <li><a href="/pages/about">About</a></li>
-            <li><a href="/pages/contact">Contact</a></li>
+        <nav class="modern-header__nav">
+          <ul class="modern-header__nav-list">
+            <li class="modern-header__nav-item">
+              <a href="/" class="modern-header__nav-link">Home</a>
+            </li>
+            <li class="modern-header__nav-item">
+              <a href="/collections" class="modern-header__nav-link">Collections</a>
+            </li>
+            <li class="modern-header__nav-item">
+              <a href="/pages/about" class="modern-header__nav-link">About</a>
+            </li>
+            <li class="modern-header__nav-item">
+              <a href="/pages/contact" class="modern-header__nav-link">Contact</a>
+            </li>
           </ul>
         </nav>
         
-        <div class="header-actions">
-          <a href="/cart" class="cart-link">
-            Cart (<span id="cart-count">0</span>)
+        <div class="modern-header__actions">
+          <a href="/cart" class="modern-header__cart-link">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4"></path>
+              <path d="M21 12c-1 0-4-1-4-4V4H7v4c0 3-3 4-4 4"></path>
+              <path d="M3 5h18l-2 14H5L3 5z"></path>
+            </svg>
+            <span class="modern-header__cart-text">Cart</span>
+            <span class="modern-header__cart-count" id="cart-count">0</span>
           </a>
         </div>
       </div>
@@ -48,14 +62,89 @@
   </header>
 
   <!-- Main Content -->
-  <main class="main-content">
+  <main class="modern-main">
     {{ content_for_layout }}
   </main>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+  <!-- Modern Footer -->
+  <footer class="modern-footer">
+    <div class="modern-footer__container">
+      <div class="modern-footer__content">
+        <div class="modern-footer__section">
+          <h3 class="modern-footer__title">{{ shop.name }}</h3>
+          <p class="modern-footer__description">
+            Discover amazing products designed for your lifestyle. Quality, style, and innovation in every item.
+          </p>
+          <div class="modern-footer__social">
+            <a href="#" class="modern-footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="modern-footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+              </svg>
+            </a>
+            <a href="#" class="modern-footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="modern-footer__section">
+          <h4 class="modern-footer__subtitle">Quick Links</h4>
+          <ul class="modern-footer__links">
+            <li><a href="/collections" class="modern-footer__link">All Collections</a></li>
+            <li><a href="/pages/about" class="modern-footer__link">About Us</a></li>
+            <li><a href="/pages/contact" class="modern-footer__link">Contact</a></li>
+            <li><a href="/pages/shipping" class="modern-footer__link">Shipping Info</a></li>
+          </ul>
+        </div>
+        
+        <div class="modern-footer__section">
+          <h4 class="modern-footer__subtitle">Customer Service</h4>
+          <ul class="modern-footer__links">
+            <li><a href="/pages/returns" class="modern-footer__link">Returns</a></li>
+            <li><a href="/pages/size-guide" class="modern-footer__link">Size Guide</a></li>
+            <li><a href="/pages/faq" class="modern-footer__link">FAQ</a></li>
+            <li><a href="/pages/privacy" class="modern-footer__link">Privacy Policy</a></li>
+          </ul>
+        </div>
+        
+        <div class="modern-footer__section">
+          <h4 class="modern-footer__subtitle">Newsletter</h4>
+          <p class="modern-footer__newsletter-text">Stay updated with our latest products and offers.</p>
+          <form class="modern-footer__newsletter-form">
+            <input type="email" placeholder="Enter your email" class="modern-footer__newsletter-input">
+            <button type="submit" class="modern-footer__newsletter-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+      
+      <div class="modern-footer__bottom">
+        <p class="modern-footer__copyright">
+          &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+        </p>
+        <div class="modern-footer__payment">
+          <span class="modern-footer__payment-text">We accept:</span>
+          <div class="modern-footer__payment-icons">
+            <svg width="32" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
+            </svg>
+            <svg width="32" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-5 14H4v-4h11v4zm0-6H4V8h11v4zm5 6h-4V8h4v10z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -76,90 +165,317 @@
   }
   
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #2d3748;
+    background: #ffffff;
   }
   
-  .container {
+  /* Modern Header */
+  .modern-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+  }
+  
+  .modern-header__container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
   }
   
-  /* Header styles */
-  .site-header {
-    background: white;
-    border-bottom: 1px solid #eee;
-    padding: 15px 0;
-  }
-  
-  .header-content {
+  .modern-header__content {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 15px 0;
   }
   
-  .logo h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-  
-  .logo a {
+  .modern-header__logo-link {
     text-decoration: none;
-    color: #333;
+    color: inherit;
   }
   
-  .main-nav ul {
+  .modern-header__logo-text {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+  }
+  
+  .modern-header__nav-list {
     display: flex;
     list-style: none;
     gap: 30px;
   }
   
-  .main-nav a {
+  .modern-header__nav-link {
     text-decoration: none;
-    color: #333;
-    font-weight: 500;
+    color: #4a5568;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 0;
+  }
+  
+  .modern-header__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    transition: width 0.3s ease;
+  }
+  
+  .modern-header__nav-link:hover {
+    color: #667eea;
+  }
+  
+  .modern-header__nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .modern-header__cart-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 25px;
+    background: rgba(102, 126, 234, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .modern-header__cart-link:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+  }
+  
+  .modern-header__cart-count {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  
+  /* Main Content */
+  .modern-main {
+    min-height: calc(100vh - 200px);
+  }
+  
+  /* Modern Footer */
+  .modern-footer {
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 80px;
+  }
+  
+  .modern-footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .modern-footer__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .modern-footer__title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .modern-footer__description {
+    color: #a0aec0;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .modern-footer__social {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .modern-footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: #a0aec0;
+    transition: all 0.3s ease;
+  }
+  
+  .modern-footer__social-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .modern-footer__subtitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #e2e8f0;
+  }
+  
+  .modern-footer__links {
+    list-style: none;
+  }
+  
+  .modern-footer__link {
+    color: #a0aec0;
+    text-decoration: none;
+    display: block;
+    padding: 5px 0;
     transition: color 0.3s ease;
   }
   
-  .main-nav a:hover {
-    color: #007bff;
+  .modern-footer__link:hover {
+    color: #667eea;
   }
   
-  .header-actions {
+  .modern-footer__newsletter-text {
+    color: #a0aec0;
+    margin-bottom: 15px;
+  }
+  
+  .modern-footer__newsletter-form {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .modern-footer__newsletter-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 0.9rem;
+  }
+  
+  .modern-footer__newsletter-input::placeholder {
+    color: #a0aec0;
+  }
+  
+  .modern-footer__newsletter-input:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .modern-footer__newsletter-btn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
+    justify-content: center;
   }
   
-  .cart-link {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
+  .modern-footer__newsletter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
   }
   
-  /* Main content */
-  .main-content {
-    min-height: 60vh;
+  .modern-footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  /* Footer */
-  .site-footer {
-    background: #f8f9fa;
-    padding: 40px 0;
-    text-align: center;
-    margin-top: 60px;
+  .modern-footer__copyright {
+    color: #a0aec0;
+    font-size: 0.9rem;
   }
   
-  /* Mobile responsive */
+  .modern-footer__payment {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .modern-footer__payment-text {
+    color: #a0aec0;
+    font-size: 0.9rem;
+  }
+  
+  .modern-footer__payment-icons {
+    display: flex;
+    gap: 8px;
+    color: #a0aec0;
+  }
+  
+  /* Mobile Responsive */
   @media (max-width: 768px) {
-    .header-content {
-      flex-direction: column;
-      gap: 15px;
+    .modern-header__nav {
+      display: none;
     }
     
-    .main-nav ul {
+    .modern-header__cart-text {
+      display: none;
+    }
+    
+    .modern-footer__content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .modern-footer__bottom {
+      flex-direction: column;
       gap: 20px;
+      text-align: center;
+    }
+    
+    .modern-footer__newsletter-form {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .modern-header__logo-text {
+      font-size: 1.5rem;
+    }
+    
+    .modern-footer {
+      padding: 40px 0 20px;
     }
   }
 </style>
+
