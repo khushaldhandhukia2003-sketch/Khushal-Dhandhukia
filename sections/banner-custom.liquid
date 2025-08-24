@@ -5,6 +5,7 @@
   - Responsive design for desktop and mobile
   - Smooth hover animations for buttons
   - Background image support
+  - All text in red rectangles must be editable
 {% endcomment %}
 
 <div class="banner-custom" 
@@ -54,6 +55,7 @@
     justify-content: center;
     text-align: center;
     padding: 60px 20px;
+    overflow: hidden;
   }
   
   .banner-custom::before {
@@ -63,7 +65,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.4) 100%);
     z-index: 1;
   }
   
@@ -76,6 +78,7 @@
   
   .banner-custom__content {
     color: white;
+    animation: fadeInUp 0.8s ease-out;
   }
   
   .banner-custom__heading {
@@ -83,6 +86,7 @@
     font-weight: 700;
     margin: 0 0 20px 0;
     line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   }
   
   .banner-custom__subheading {
@@ -90,6 +94,7 @@
     font-weight: 400;
     margin: 0 0 15px 0;
     opacity: 0.9;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
   
   .banner-custom__description {
@@ -99,6 +104,8 @@
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
   
   .banner-custom__buttons {
@@ -112,36 +119,66 @@
     display: inline-block;
     padding: 15px 30px;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 50px;
     font-weight: 600;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: 2px solid transparent;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .banner-custom__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .banner-custom__button:hover::before {
+    left: 100%;
   }
   
   .banner-custom__button--primary {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
   }
   
   .banner-custom__button--primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.4);
   }
   
   .banner-custom__button--secondary {
-    background-color: transparent;
+    background: transparent;
     color: white;
     border-color: white;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
   }
   
   .banner-custom__button--secondary:hover {
-    background-color: white;
+    background: white;
     color: #333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   /* Mobile Responsive */
@@ -186,6 +223,11 @@
     
     .banner-custom__subheading {
       font-size: 1.1rem;
+    }
+    
+    .banner-custom__button {
+      padding: 12px 24px;
+      font-size: 0.9rem;
     }
   }
 </style>

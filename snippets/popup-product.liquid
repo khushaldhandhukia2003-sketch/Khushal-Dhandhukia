@@ -6,6 +6,7 @@
   - Add to cart functionality
   - Mobile responsive
   - Close on outside click or X button
+  - Enhanced variant handling
 {% endcomment %}
 
 <div id="product-popup" class="product-popup" style="display: none;">
@@ -34,7 +35,11 @@
           
           <div class="product-popup__quantity">
             <label for="popup-quantity">Quantity:</label>
-            <input type="number" id="popup-quantity" name="quantity" value="1" min="1" max="99">
+            <div class="product-popup__quantity-controls">
+              <button type="button" class="product-popup__quantity-btn" onclick="changeQuantity(-1)">-</button>
+              <input type="number" id="popup-quantity" name="quantity" value="1" min="1" max="99">
+              <button type="button" class="product-popup__quantity-btn" onclick="changeQuantity(1)">+</button>
+            </div>
           </div>
           
           <button type="submit" class="product-popup__add-to-cart">
@@ -57,6 +62,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
   .product-popup__overlay {
@@ -65,42 +80,57 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     cursor: pointer;
+    backdrop-filter: blur(4px);
   }
   
   .product-popup__content {
     position: relative;
     background: white;
-    border-radius: 8px;
+    border-radius: 12px;
     max-width: 900px;
     width: 90%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px) scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
   }
   
   .product-popup__close {
     position: absolute;
     top: 15px;
     right: 20px;
-    background: none;
+    background: rgba(255, 255, 255, 0.9);
     border: none;
     font-size: 24px;
     cursor: pointer;
     color: #666;
     z-index: 10;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
   
   .product-popup__close:hover {
     background-color: #f0f0f0;
+    transform: scale(1.1);
   }
   
   .product-popup__body {
@@ -116,7 +146,8 @@
   .product-popup__image img {
     width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   
   .product-popup__details {
@@ -125,22 +156,36 @@
   
   .product-popup__title {
     font-size: 1.8rem;
-    font-weight: 600;
+    font-weight: 700;
     margin: 0 0 15px 0;
     color: #333;
+    line-height: 1.2;
   }
   
   .product-popup__price {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #007bff;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .price-sale {
+    color: #dc3545;
+  }
+  
+  .price-compare {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 1.1rem;
   }
   
   .product-popup__description {
     margin-bottom: 25px;
     line-height: 1.6;
     color: #666;
+    font-size: 0.95rem;
   }
   
   .product-popup__variants {
@@ -156,14 +201,25 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
   .product-popup__variant-select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
     font-size: 14px;
+    transition: border-color 0.3s ease;
+    background: white;
+  }
+  
+  .product-popup__variant-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
   }
   
   .product-popup__quantity {
@@ -175,36 +231,84 @@
     font-weight: 600;
     margin-bottom: 8px;
     color: #333;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .product-popup__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .product-popup__quantity-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #e0e0e0;
+    background: white;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .product-popup__quantity-btn:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+  }
+  
+  .product-popup__quantity-btn:active {
+    transform: scale(0.95);
   }
   
   .product-popup__quantity input {
     width: 80px;
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
     font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .product-popup__quantity input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
   }
   
   .product-popup__add-to-cart {
     width: 100%;
     padding: 15px;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
   }
   
   .product-popup__add-to-cart:hover {
-    background-color: #0056b3;
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
   }
   
   .product-popup__add-to-cart:disabled {
-    background-color: #ccc;
+    background: #ccc;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
   
   /* Mobile Responsive */
@@ -231,6 +335,14 @@
     .product-popup__price {
       font-size: 1.2rem;
     }
+    
+    .product-popup__close {
+      top: 10px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      font-size: 20px;
+    }
   }
   
   @media (max-width: 480px) {
@@ -240,6 +352,16 @@
     
     .product-popup__title {
       font-size: 1.3rem;
+    }
+    
+    .product-popup__quantity-controls {
+      gap: 8px;
+    }
+    
+    .product-popup__quantity-btn {
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
     }
   }
 </style>
@@ -262,15 +384,7 @@
     document.getElementById('popup-quantity').value = 1;
     
     // Set price
-    const priceElement = document.getElementById('popup-product-price');
-    if (currentVariant.compare_at_price && currentVariant.compare_at_price > currentVariant.price) {
-      priceElement.innerHTML = `
-        <span class="price-sale">${formatMoney(currentVariant.price)}</span>
-        <span class="price-compare">${formatMoney(currentVariant.compare_at_price)}</span>
-      `;
-    } else {
-      priceElement.textContent = formatMoney(currentVariant.price);
-    }
+    updatePopupPrice();
     
     // Set description
     document.getElementById('popup-product-description').innerHTML = product.description;
@@ -281,6 +395,14 @@
     // Show popup
     document.getElementById('product-popup').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    
+    // Focus on first input for accessibility
+    setTimeout(() => {
+      const firstInput = document.querySelector('.product-popup__variant-select, #popup-quantity');
+      if (firstInput) {
+        firstInput.focus();
+      }
+    }, 100);
   }
   
   // Close product popup
@@ -289,6 +411,19 @@
     document.body.style.overflow = '';
     currentProduct = null;
     currentVariant = null;
+  }
+  
+  // Update popup price display
+  function updatePopupPrice() {
+    const priceElement = document.getElementById('popup-product-price');
+    if (currentVariant.compare_at_price && currentVariant.compare_at_price > currentVariant.price) {
+      priceElement.innerHTML = `
+        <span class="price-sale">${formatMoney(currentVariant.price)}</span>
+        <span class="price-compare">${formatMoney(currentVariant.compare_at_price)}</span>
+      `;
+    } else {
+      priceElement.textContent = formatMoney(currentVariant.price);
+    }
   }
   
   // Build variant selectors
@@ -318,12 +453,24 @@
         select.className = 'product-popup__variant-select';
         select.dataset.optionIndex = index;
         
+        // Add default option
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = `Select ${optionName}`;
+        defaultOption.disabled = true;
+        select.appendChild(defaultOption);
+        
         optionValues.forEach(value => {
           const option = document.createElement('option');
           option.value = value;
           option.textContent = value;
           select.appendChild(option);
         });
+        
+        // Set current value
+        if (currentVariant && currentVariant.options[index]) {
+          select.value = currentVariant.options[index];
+        }
         
         select.addEventListener('change', handleVariantChange);
         
@@ -349,21 +496,25 @@
       document.getElementById('popup-product-id').value = currentVariant.id;
       
       // Update price
-      const priceElement = document.getElementById('popup-product-price');
-      if (currentVariant.compare_at_price && currentVariant.compare_at_price > currentVariant.price) {
-        priceElement.innerHTML = `
-          <span class="price-sale">${formatMoney(currentVariant.price)}</span>
-          <span class="price-compare">${formatMoney(currentVariant.compare_at_price)}</span>
-        `;
-      } else {
-        priceElement.textContent = formatMoney(currentVariant.price);
-      }
+      updatePopupPrice();
       
       // Update image if variant has different image
       if (currentVariant.featured_image) {
         document.getElementById('popup-product-image').src = currentVariant.featured_image;
       }
     }
+  }
+  
+  // Change quantity
+  function changeQuantity(delta) {
+    const quantityInput = document.getElementById('popup-quantity');
+    let currentQuantity = parseInt(quantityInput.value) || 1;
+    let newQuantity = currentQuantity + delta;
+    
+    // Ensure quantity is within bounds
+    newQuantity = Math.max(1, Math.min(99, newQuantity));
+    
+    quantityInput.value = newQuantity;
   }
   
   // Format money (basic implementation)
@@ -379,6 +530,11 @@
     const quantity = parseInt(formData.get('quantity'));
     const variantId = formData.get('id');
     
+    if (!variantId) {
+      showNotification('Please select a variant', 'error');
+      return;
+    }
+    
     addToCart(variantId, quantity);
   });
   
@@ -390,5 +546,10 @@
     if (e.key === 'Escape' && document.getElementById('product-popup').style.display === 'flex') {
       closeProductPopup();
     }
+  });
+  
+  // Prevent popup from closing when clicking inside content
+  document.querySelector('.product-popup__content').addEventListener('click', function(e) {
+    e.stopPropagation();
   });
 </script>
