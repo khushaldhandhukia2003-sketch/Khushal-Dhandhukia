@@ -1,0 +1,163 @@
+{% comment %}
+  Rich Text Section
+  A flexible section for displaying formatted text content
+{% endcomment %}
+
+{%- liquid
+  assign title = section.settings.title
+  assign text = section.settings.text
+  assign desktop_content_position = section.settings.desktop_content_position
+  assign content_alignment = section.settings.content_alignment
+  assign color_scheme = section.settings.color_scheme
+  assign full_width = section.settings.full_width
+-%}
+
+<div class="rich-text-section section-{{ section.id }}-padding{% if full_width %} full-width{% endif %} color-{{ color_scheme }}">
+  <div class="page-width">
+    <div class="rich-text__wrapper rich-text__wrapper--{{ desktop_content_position }}">
+      <div class="rich-text__blocks">
+        {%- if title != blank -%}
+          <h2 class="rich-text__heading rte inline-richtext h1{% if content_alignment == 'center' %} text-center{% endif %}">
+            {{ title }}
+          </h2>
+        {%- endif -%}
+        
+        {%- if text != blank -%}
+          <div class="rich-text__text rte{% if content_alignment == 'center' %} text-center{% endif %}">
+            {{ text }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  .rich-text__wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .rich-text__wrapper--left {
+    margin-left: 0;
+  }
+  
+  .rich-text__wrapper--right {
+    margin-left: auto;
+  }
+  
+  .rich-text__heading {
+    margin-bottom: 1.5rem;
+  }
+  
+  .rich-text__text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .full-width {
+    max-width: none;
+  }
+  
+  .color-background-1 {
+    background-color: #f8f8f8;
+  }
+  
+  .color-background-2 {
+    background-color: #ffffff;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Rich Text",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>This is a sample page demonstrating the custom Shopify sections we've created. The banner section above showcases editable content with smooth animations, while the product grid below displays exactly six products in a responsive layout.</p>"
+    },
+    {
+      "type": "select",
+      "id": "desktop_content_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Desktop content position"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "center",
+      "label": "Content alignment"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "options": [
+        {
+          "value": "background-1",
+          "label": "Background 1"
+        },
+        {
+          "value": "background-2",
+          "label": "Background 2"
+        }
+      ],
+      "default": "background-1",
+      "label": "Color scheme"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "default": false,
+      "label": "Full width"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}
