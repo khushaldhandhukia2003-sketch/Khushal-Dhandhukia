@@ -1,0 +1,57 @@
+{% comment %}
+  Custom Banner Section
+  - All texts editable from Theme Customizer
+  - Buttons have a simple hover/arrow animation
+{% endcomment %}
+
+<section class="ee-banner {% if section.settings.full_bleed %}ee-banner--full{% endif %}" style="--ee-banner-bg: {{ section.settings.bg | default: '#ffffff' }};">
+  <div class="ee-banner__topbar">
+    <div class="ee-banner__brand">{{ section.settings.brand_text }}</div>
+    <div class="ee-banner__tagline">{{ section.settings.tagline }}</div>
+    <a class="ee-btn ee-btn--sm" href="{{ section.settings.cta_top_link }}" aria-label="{{ section.settings.cta_top_label }}">
+      <span>{{ section.settings.cta_top_label }}</span>
+      <svg class="ee-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+    </a>
+  </div>
+
+  <div class="ee-banner__hero" {% if section.settings.bg_image %}style="background-image:url({{ section.settings.bg_image | image_url: width: 2000 }});" {% endif %}>
+    <div class="ee-banner__content wrapper">
+      <h1 class="ee-banner__title">{{ section.settings.title }}</h1>
+      <p class="ee-banner__desc">{{ section.settings.subtitle }}</p>
+      <a class="ee-btn ee-btn--lg" href="{{ section.settings.cta_main_link }}">
+        <span>{{ section.settings.cta_main_label }}</span>
+        <svg class="ee-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="ee-banner__ticker">
+    <div class="ee-banner__ticker-inner">
+      <span>{{ section.settings.ticker_text }}</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "EE • Custom Banner",
+  "settings": [
+    { "type": "checkbox", "id": "full_bleed", "label": "Full width", "default": true },
+    { "type": "color", "id": "bg", "label": "Background color", "default": "#ffffff" },
+
+    { "type": "text", "id": "brand_text", "label": "Brand text", "default": "TISSO VISON" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Find the ideal gift for your loved ones." },
+    { "type": "text", "id": "cta_top_label", "label": "Top button label", "default": "CHOOSE GIFT" },
+    { "type": "url", "id": "cta_top_link", "label": "Top button link" },
+
+    { "type": "image_picker", "id": "bg_image", "label": "Hero background image" },
+    { "type": "text", "id": "title", "label": "Hero title", "default": "The Gift Guide" },
+    { "type": "textarea", "id": "subtitle", "label": "Hero paragraph", "default": "Discover Joy: Your Ultimate Holiday Gift Destination." },
+    { "type": "text", "id": "cta_main_label", "label": "Main CTA label", "default": "SHOP NOW" },
+    { "type": "url", "id": "cta_main_link", "label": "Main CTA link" },
+
+    { "type": "text", "id": "ticker_text", "label": "Ticker text", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
+  ],
+  "presets": [{ "name": "EE • Custom Banner" }]
+}
+{% endschema %}

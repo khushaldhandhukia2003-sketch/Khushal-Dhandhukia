@@ -1,0 +1,50 @@
+{% schema %}
+{
+  "name": "Custom Popup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "popup_title",
+      "label": "Popup Title",
+      "default": "Special Offer!"
+    },
+    {
+      "type": "textarea",
+      "id": "popup_text",
+      "label": "Popup Text",
+      "default": "Get 10% off your first order."
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_image",
+      "label": "Popup Image"
+    },
+    {
+      "type": "url",
+      "id": "popup_button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "popup_button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    }
+  ]
+}
+{% endschema %}
+
+<div id="custom-popup" class="custom-popup hidden fixed inset-0 flex items-center justify-center z-50">
+  <div class="popup-overlay absolute inset-0 bg-black bg-opacity-50"></div>
+  <div class="popup-content relative bg-white rounded-lg shadow-lg p-6 max-w-md w-full z-10">
+    {% if section.settings.popup_image %}
+      <img src="{{ section.settings.popup_image | image_url: width: 400 }}" alt="Popup image" class="mb-4 rounded-md">
+    {% endif %}
+    <h2 class="text-xl font-bold mb-2">{{ section.settings.popup_title }}</h2>
+    <p class="mb-4">{{ section.settings.popup_text }}</p>
+    <a href="{{ section.settings.popup_button_link }}" class="popup-btn inline-block bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+      {{ section.settings.popup_button_text }}
+    </a>
+    <button id="popup-close" class="absolute top-2 right-2 text-gray-500 hover:text-black">&times;</button>
+  </div>
+</div>
