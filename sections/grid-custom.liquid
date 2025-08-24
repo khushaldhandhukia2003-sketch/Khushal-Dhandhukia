@@ -1,0 +1,479 @@
+{% comment %}
+  Grid Custom Section
+  Features:
+  - Exactly 6 product blocks
+  - Responsive grid layout (3 columns desktop, 2 columns mobile)
+  - Product picker for each block
+  - Quick view functionality
+  - Product image, title, price display
+{% endcomment %}
+
+{% include 'popup-product' %}
+
+<div class="grid-custom">
+  <div class="grid-custom__container">
+    {% if section.settings.heading != blank %}
+      <h2 class="grid-custom__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    
+    {% if section.settings.subheading != blank %}
+      <p class="grid-custom__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+    
+    <div class="grid-custom__products">
+      {% for i in (1..6) %}
+        {% assign product_key = 'product_' | append: i %}
+        {% assign product = all_products[section.settings[product_key]] %}
+        
+        {% if product != blank %}
+          <div class="grid-custom__product" data-product-id="{{ product.id }}">
+            <div class="grid-custom__product-image">
+              <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
+                   alt="{{ product.title }}"
+                   loading="lazy">
+              <div class="grid-custom__product-overlay">
+                <button class="grid-custom__quick-view" 
+                        onclick="openProductPopup({{ product | json }})">
+                  Quick View
+                </button>
+              </div>
+            </div>
+            
+            <div class="grid-custom__product-info">
+              <h3 class="grid-custom__product-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              
+              <div class="grid-custom__product-price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="grid-custom__price-sale">{{ product.price | money }}</span>
+                  <span class="grid-custom__price-compare">{{ product.compare_at_price | money }}</span>
+                {% else %}
+                  <span class="grid-custom__price">{{ product.price | money }}</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% else %}
+          <!-- Empty product block for theme editor -->
+          <div class="grid-custom__product grid-custom__product--empty">
+            <div class="grid-custom__product-placeholder">
+              <div class="grid-custom__placeholder-icon">📦</div>
+              <p>Select a product for block {{ i }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .grid-custom {
+    padding: 60px 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .grid-custom__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .grid-custom__heading {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: #333;
+  }
+  
+  .grid-custom__subheading {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0 0 50px 0;
+  }
+  
+  .grid-custom__products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  .grid-custom__product {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .grid-custom__product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .grid-custom__product-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+  }
+  
+  .grid-custom__product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .grid-custom__product:hover .grid-custom__product-image img {
+    transform: scale(1.05);
+  }
+  
+  .grid-custom__product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .grid-custom__product:hover .grid-custom__product-overlay {
+    opacity: 1;
+  }
+  
+  .grid-custom__quick-view {
+    background: white;
+    color: #333;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .grid-custom__quick-view:hover {
+    background: #007bff;
+    color: white;
+    transform: scale(1.05);
+  }
+  
+  .grid-custom__product-info {
+    padding: 20px;
+  }
+  
+  .grid-custom__product-title {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  
+  .grid-custom__product-title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .grid-custom__product-title a:hover {
+    color: #007bff;
+  }
+  
+  .grid-custom__product-price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .grid-custom__price {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  .grid-custom__price-sale {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #dc3545;
+  }
+  
+  .grid-custom__price-compare {
+    font-size: 0.9rem;
+    color: #999;
+    text-decoration: line-through;
+  }
+  
+  /* Empty product block styling */
+  .grid-custom__product--empty {
+    border: 2px dashed #ddd;
+    background: #fafafa;
+  }
+  
+  .grid-custom__product-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+  }
+  
+  .grid-custom__placeholder-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .grid-custom {
+      padding: 40px 15px;
+    }
+    
+    .grid-custom__heading {
+      font-size: 2rem;
+    }
+    
+    .grid-custom__subheading {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    
+    .grid-custom__products {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .grid-custom__product-info {
+      padding: 15px;
+    }
+    
+    .grid-custom__product-title {
+      font-size: 1rem;
+    }
+    
+    .grid-custom__price,
+    .grid-custom__price-sale {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grid-custom__products {
+      gap: 15px;
+    }
+    
+    .grid-custom__product-info {
+      padding: 12px;
+    }
+  }
+</style>
+
+<script>
+  // Cart functionality
+  async function addToCart(variantId, quantity) {
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: quantity
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to add to cart');
+      }
+      
+      const result = await response.json();
+      
+      // Check if we need to add the "Soft Winter Jacket" automatically
+      await checkAndAddSoftWinterJacket(result);
+      
+      // Close popup
+      closeProductPopup();
+      
+      // Show success message
+      showNotification('Product added to cart!', 'success');
+      
+      // Update cart count (if you have a cart counter)
+      updateCartCount();
+      
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      showNotification('Failed to add product to cart', 'error');
+    }
+  }
+  
+  // Check and add Soft Winter Jacket if conditions are met
+  async function checkAndAddSoftWinterJacket(addedProduct) {
+    try {
+      // Get the added product details
+      const productResponse = await fetch(`/products/${addedProduct.handle}.js`);
+      const product = await productResponse.json();
+      
+      // Check if the added product has variant "Black + Medium"
+      const blackMediumVariant = product.variants.find(variant => {
+        return variant.option1 === 'Black' && variant.option2 === 'Medium';
+      });
+      
+      if (blackMediumVariant && addedProduct.variant_id === blackMediumVariant.id) {
+        // Find the Soft Winter Jacket product
+        const softWinterJacketResponse = await fetch('/products/soft-winter-jacket.js');
+        const softWinterJacket = await softWinterJacketResponse.json();
+        
+        if (softWinterJacket) {
+          // Check if Soft Winter Jacket is already in cart
+          const cartResponse = await fetch('/cart.js');
+          const cart = await cartResponse.json();
+          
+          const existingItem = cart.items.find(item => item.product_id === softWinterJacket.id);
+          
+          if (existingItem) {
+            // Update quantity
+            await fetch('/cart/change.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: existingItem.key,
+                quantity: existingItem.quantity + 1
+              })
+            });
+          } else {
+            // Add to cart
+            await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: softWinterJacket.variants[0].id,
+                quantity: 1
+              })
+            });
+          }
+          
+          showNotification('Soft Winter Jacket automatically added to cart!', 'success');
+        }
+      }
+    } catch (error) {
+      console.error('Error checking for Soft Winter Jacket:', error);
+    }
+  }
+  
+  // Show notification
+  function showNotification(message, type = 'info') {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification notification--${type}`;
+    notification.textContent = message;
+    
+    // Add styles
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 4px;
+      color: white;
+      font-weight: 600;
+      z-index: 10000;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      ${type === 'success' ? 'background-color: #28a745;' : ''}
+      ${type === 'error' ? 'background-color: #dc3545;' : ''}
+      ${type === 'info' ? 'background-color: #17a2b8;' : ''}
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+      notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+      notification.style.transform = 'translateX(100%)';
+      setTimeout(() => {
+        document.body.removeChild(notification);
+      }, 300);
+    }, 3000);
+  }
+  
+  // Update cart count (placeholder function)
+  function updateCartCount() {
+    // This function would update your cart counter
+    // Implementation depends on your theme's cart structure
+    console.log('Cart updated');
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Product Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Featured Products"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Section Subheading",
+      "default": "Discover our latest collection"
+    },
+    {
+      "type": "product",
+      "id": "product_1",
+      "label": "Product 1"
+    },
+    {
+      "type": "product",
+      "id": "product_2",
+      "label": "Product 2"
+    },
+    {
+      "type": "product",
+      "id": "product_3",
+      "label": "Product 3"
+    },
+    {
+      "type": "product",
+      "id": "product_4",
+      "label": "Product 4"
+    },
+    {
+      "type": "product",
+      "id": "product_5",
+      "label": "Product 5"
+    },
+    {
+      "type": "product",
+      "id": "product_6",
+      "label": "Product 6"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Grid",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}

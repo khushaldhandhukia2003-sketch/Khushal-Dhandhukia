@@ -1,0 +1,110 @@
+{% comment %}
+  Index Template
+  Demonstrates the usage of custom banner and grid sections
+{% endcomment %}
+
+<!-- Custom Banner Section -->
+{% section 'banner-custom' %}
+
+<!-- Custom Product Grid Section -->
+{% section 'grid-custom' %}
+
+<!-- Additional content can be added here -->
+<div class="additional-content">
+  <div class="container">
+    <div class="content-block">
+      <h2>Welcome to Our Store</h2>
+      <p>This is a sample page demonstrating the custom Shopify sections we've created. The banner section above showcases editable content with smooth animations, while the product grid below displays exactly six products in a responsive layout.</p>
+      
+      <div class="features">
+        <div class="feature">
+          <h3>🎨 Customizable</h3>
+          <p>All text and images are editable through the Shopify theme editor</p>
+        </div>
+        <div class="feature">
+          <h3>📱 Responsive</h3>
+          <p>Perfect display on desktop, tablet, and mobile devices</p>
+        </div>
+        <div class="feature">
+          <h3>⚡ Fast</h3>
+          <p>Optimized for performance with vanilla JavaScript</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .additional-content {
+    padding: 80px 0;
+    background: white;
+  }
+  
+  .content-block {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .content-block h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .content-block > p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 50px;
+    line-height: 1.6;
+  }
+  
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+  }
+  
+  .feature {
+    padding: 30px 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+  
+  .feature:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .feature p {
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .additional-content {
+      padding: 60px 0;
+    }
+    
+    .content-block h2 {
+      font-size: 2rem;
+    }
+    
+    .content-block > p {
+      font-size: 1.1rem;
+    }
+    
+    .features {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+</style>

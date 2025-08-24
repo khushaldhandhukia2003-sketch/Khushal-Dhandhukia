@@ -1,0 +1,250 @@
+{% comment %}
+  Banner Custom Section
+  Features:
+  - Editable text fields via schema
+  - Responsive design for desktop and mobile
+  - Smooth hover animations for buttons
+  - Background image support
+{% endcomment %}
+
+<div class="banner-custom" 
+     style="background-image: url('{{ section.settings.background_image | img_url: 'master' }}');">
+  <div class="banner-custom__container">
+    <div class="banner-custom__content">
+      {% if section.settings.heading != blank %}
+        <h1 class="banner-custom__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+      
+      {% if section.settings.subheading != blank %}
+        <p class="banner-custom__subheading">{{ section.settings.subheading }}</p>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <div class="banner-custom__description">{{ section.settings.description }}</div>
+      {% endif %}
+      
+      <div class="banner-custom__buttons">
+        {% if section.settings.primary_button_text != blank and section.settings.primary_button_link != blank %}
+          <a href="{{ section.settings.primary_button_link }}" 
+             class="banner-custom__button banner-custom__button--primary">
+            {{ section.settings.primary_button_text }}
+          </a>
+        {% endif %}
+        
+        {% if section.settings.secondary_button_text != blank and section.settings.secondary_button_link != blank %}
+          <a href="{{ section.settings.secondary_button_link }}" 
+             class="banner-custom__button banner-custom__button--secondary">
+            {{ section.settings.secondary_button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .banner-custom {
+    position: relative;
+    min-height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  
+  .banner-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  .banner-custom__container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .banner-custom__content {
+    color: white;
+  }
+  
+  .banner-custom__heading {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+  
+  .banner-custom__subheading {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 15px 0;
+    opacity: 0.9;
+  }
+  
+  .banner-custom__description {
+    font-size: 1.1rem;
+    margin: 0 0 40px 0;
+    opacity: 0.8;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .banner-custom__buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .banner-custom__button {
+    display: inline-block;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  
+  .banner-custom__button--primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .banner-custom__button--primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  }
+  
+  .banner-custom__button--secondary {
+    background-color: transparent;
+    color: white;
+    border-color: white;
+  }
+  
+  .banner-custom__button--secondary:hover {
+    background-color: white;
+    color: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .banner-custom {
+      min-height: 500px;
+      padding: 40px 15px;
+    }
+    
+    .banner-custom__heading {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    
+    .banner-custom__subheading {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    .banner-custom__description {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+    
+    .banner-custom__buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .banner-custom__button {
+      width: 100%;
+      max-width: 280px;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .banner-custom__heading {
+      font-size: 2rem;
+    }
+    
+    .banner-custom__subheading {
+      font-size: 1.1rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome to Our Store"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover Amazing Products"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Shop our latest collection of premium products designed for your lifestyle.</p>"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_text",
+      "label": "Primary Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_text",
+      "label": "Secondary Button Text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}

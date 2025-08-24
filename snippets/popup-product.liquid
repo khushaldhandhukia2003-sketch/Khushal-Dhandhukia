@@ -1,0 +1,394 @@
+{% comment %}
+  Popup Product Modal Snippet
+  Features:
+  - Product details display
+  - Dynamic variant selection
+  - Add to cart functionality
+  - Mobile responsive
+  - Close on outside click or X button
+{% endcomment %}
+
+<div id="product-popup" class="product-popup" style="display: none;">
+  <div class="product-popup__overlay"></div>
+  <div class="product-popup__content">
+    <button class="product-popup__close" onclick="closeProductPopup()">
+      <span>&times;</span>
+    </button>
+    
+    <div class="product-popup__body">
+      <div class="product-popup__image">
+        <img id="popup-product-image" src="" alt="">
+      </div>
+      
+      <div class="product-popup__details">
+        <h2 id="popup-product-title" class="product-popup__title"></h2>
+        <div id="popup-product-price" class="product-popup__price"></div>
+        <div id="popup-product-description" class="product-popup__description"></div>
+        
+        <form id="popup-product-form" class="product-popup__form">
+          <input type="hidden" id="popup-product-id" name="id" value="">
+          
+          <div id="popup-variant-selectors" class="product-popup__variants">
+            <!-- Variant selectors will be dynamically populated -->
+          </div>
+          
+          <div class="product-popup__quantity">
+            <label for="popup-quantity">Quantity:</label>
+            <input type="number" id="popup-quantity" name="quantity" value="1" min="1" max="99">
+          </div>
+          
+          <button type="submit" class="product-popup__add-to-cart">
+            Add to Cart
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .product-popup__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+  }
+  
+  .product-popup__content {
+    position: relative;
+    background: white;
+    border-radius: 8px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .product-popup__close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    z-index: 10;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .product-popup__close:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .product-popup__body {
+    display: flex;
+    padding: 30px;
+    gap: 30px;
+  }
+  
+  .product-popup__image {
+    flex: 0 0 300px;
+  }
+  
+  .product-popup__image img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .product-popup__details {
+    flex: 1;
+  }
+  
+  .product-popup__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    color: #333;
+  }
+  
+  .product-popup__price {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .product-popup__description {
+    margin-bottom: 25px;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .product-popup__variants {
+    margin-bottom: 20px;
+  }
+  
+  .product-popup__variant-group {
+    margin-bottom: 15px;
+  }
+  
+  .product-popup__variant-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .product-popup__variant-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .product-popup__quantity {
+    margin-bottom: 25px;
+  }
+  
+  .product-popup__quantity label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .product-popup__quantity input {
+    width: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .product-popup__add-to-cart {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .product-popup__add-to-cart:hover {
+    background-color: #0056b3;
+  }
+  
+  .product-popup__add-to-cart:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .product-popup__content {
+      width: 95%;
+      max-height: 95vh;
+    }
+    
+    .product-popup__body {
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+    }
+    
+    .product-popup__image {
+      flex: none;
+    }
+    
+    .product-popup__title {
+      font-size: 1.5rem;
+    }
+    
+    .product-popup__price {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .product-popup__body {
+      padding: 15px;
+    }
+    
+    .product-popup__title {
+      font-size: 1.3rem;
+    }
+  }
+</style>
+
+<script>
+  // Global variables for popup functionality
+  let currentProduct = null;
+  let currentVariant = null;
+  
+  // Open product popup
+  function openProductPopup(product) {
+    currentProduct = product;
+    currentVariant = product.variants[0]; // Default to first variant
+    
+    // Populate popup content
+    document.getElementById('popup-product-image').src = product.featured_image;
+    document.getElementById('popup-product-image').alt = product.title;
+    document.getElementById('popup-product-title').textContent = product.title;
+    document.getElementById('popup-product-id').value = currentVariant.id;
+    document.getElementById('popup-quantity').value = 1;
+    
+    // Set price
+    const priceElement = document.getElementById('popup-product-price');
+    if (currentVariant.compare_at_price && currentVariant.compare_at_price > currentVariant.price) {
+      priceElement.innerHTML = `
+        <span class="price-sale">${formatMoney(currentVariant.price)}</span>
+        <span class="price-compare">${formatMoney(currentVariant.compare_at_price)}</span>
+      `;
+    } else {
+      priceElement.textContent = formatMoney(currentVariant.price);
+    }
+    
+    // Set description
+    document.getElementById('popup-product-description').innerHTML = product.description;
+    
+    // Build variant selectors
+    buildVariantSelectors(product);
+    
+    // Show popup
+    document.getElementById('product-popup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  
+  // Close product popup
+  function closeProductPopup() {
+    document.getElementById('product-popup').style.display = 'none';
+    document.body.style.overflow = '';
+    currentProduct = null;
+    currentVariant = null;
+  }
+  
+  // Build variant selectors
+  function buildVariantSelectors(product) {
+    const container = document.getElementById('popup-variant-selectors');
+    container.innerHTML = '';
+    
+    if (product.variants.length <= 1) {
+      return;
+    }
+    
+    // Group variants by option
+    const options = product.options;
+    options.forEach((option, index) => {
+      const optionName = option.name;
+      const optionValues = [...new Set(product.variants.map(v => v.options[index]))];
+      
+      if (optionValues.length > 1) {
+        const group = document.createElement('div');
+        group.className = 'product-popup__variant-group';
+        
+        const label = document.createElement('label');
+        label.className = 'product-popup__variant-label';
+        label.textContent = optionName;
+        
+        const select = document.createElement('select');
+        select.className = 'product-popup__variant-select';
+        select.dataset.optionIndex = index;
+        
+        optionValues.forEach(value => {
+          const option = document.createElement('option');
+          option.value = value;
+          option.textContent = value;
+          select.appendChild(option);
+        });
+        
+        select.addEventListener('change', handleVariantChange);
+        
+        group.appendChild(label);
+        group.appendChild(select);
+        container.appendChild(group);
+      }
+    });
+  }
+  
+  // Handle variant selection change
+  function handleVariantChange(event) {
+    const optionIndex = parseInt(event.target.dataset.optionIndex);
+    const selectedValue = event.target.value;
+    
+    // Find matching variant
+    const matchingVariant = currentProduct.variants.find(variant => {
+      return variant.options[optionIndex] === selectedValue;
+    });
+    
+    if (matchingVariant) {
+      currentVariant = matchingVariant;
+      document.getElementById('popup-product-id').value = currentVariant.id;
+      
+      // Update price
+      const priceElement = document.getElementById('popup-product-price');
+      if (currentVariant.compare_at_price && currentVariant.compare_at_price > currentVariant.price) {
+        priceElement.innerHTML = `
+          <span class="price-sale">${formatMoney(currentVariant.price)}</span>
+          <span class="price-compare">${formatMoney(currentVariant.compare_at_price)}</span>
+        `;
+      } else {
+        priceElement.textContent = formatMoney(currentVariant.price);
+      }
+      
+      // Update image if variant has different image
+      if (currentVariant.featured_image) {
+        document.getElementById('popup-product-image').src = currentVariant.featured_image;
+      }
+    }
+  }
+  
+  // Format money (basic implementation)
+  function formatMoney(cents) {
+    return '$' + (cents / 100).toFixed(2);
+  }
+  
+  // Handle form submission
+  document.getElementById('popup-product-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const quantity = parseInt(formData.get('quantity'));
+    const variantId = formData.get('id');
+    
+    addToCart(variantId, quantity);
+  });
+  
+  // Close popup when clicking overlay
+  document.querySelector('.product-popup__overlay').addEventListener('click', closeProductPopup);
+  
+  // Close popup with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && document.getElementById('product-popup').style.display === 'flex') {
+      closeProductPopup();
+    }
+  });
+</script>
