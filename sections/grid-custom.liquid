@@ -3,10 +3,11 @@
   Features:
   - Exactly 6 product blocks
   - Responsive grid layout (3 columns desktop, 2 columns mobile)
-  - Product picker for each block
+  - Product picker for each block OR collection picker
   - Quick view functionality
   - Product image, title, price display
   - Special cart logic for Black + Medium variant
+  - Support for CSV-imported products
 {% endcomment %}
 
 {% include 'popup-product' %}
@@ -22,16 +23,24 @@
     {% endif %}
     
     <div class="grid-custom__products">
-      {% for i in (1..6) %}
-        {% assign product_key = 'product_' | append: i %}
-        {% assign product = all_products[section.settings[product_key]] %}
+      {% comment %} Check if we're using a collection or individual products {% endcomment %}
+      {% if section.settings.use_collection and section.settings.collection != blank %}
+        {% comment %} Display products from selected collection {% endcomment %}
+        {% assign collection = collections[section.settings.collection] %}
+        {% assign products_to_show = collection.products | slice: 0, 6 %}
         
-        {% if product != blank %}
+        {% for product in products_to_show %}
           <div class="grid-custom__product" data-product-id="{{ product.id }}">
             <div class="grid-custom__product-image">
-              <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
-                   alt="{{ product.title }}"
-                   loading="lazy">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
+                     alt="{{ product.title }}"
+                     loading="lazy">
+              {% else %}
+                <div class="grid-custom__no-image">
+                  <span>No Image</span>
+                </div>
+              {% endif %}
               <div class="grid-custom__product-overlay">
                 <button class="grid-custom__quick-view" 
                         onclick="openProductPopup({{ product | json }})">
@@ -53,18 +62,93 @@
                   <span class="grid-custom__price">{{ product.price | money }}</span>
                 {% endif %}
               </div>
+              
+              {% if product.available %}
+                <div class="grid-custom__product-status grid-custom__product-status--available">
+                  In Stock
+                </div>
+              {% else %}
+                <div class="grid-custom__product-status grid-custom__product-status--unavailable">
+                  Out of Stock
+                </div>
+              {% endif %}
             </div>
           </div>
-        {% else %}
-          <!-- Empty product block for theme editor -->
+        {% endfor %}
+        
+        {% comment %} Fill remaining slots if collection has fewer than 6 products {% endcomment %}
+        {% assign remaining_slots = 6 | minus: products_to_show.size %}
+        {% for i in (1..remaining_slots) %}
           <div class="grid-custom__product grid-custom__product--empty">
             <div class="grid-custom__product-placeholder">
               <div class="grid-custom__placeholder-icon">📦</div>
-              <p>Select a product for block {{ i }}</p>
+              <p>No more products in collection</p>
             </div>
           </div>
-        {% endif %}
-      {% endfor %}
+        {% endfor %}
+        
+      {% else %}
+        {% comment %} Display individually selected products {% endcomment %}
+        {% for i in (1..6) %}
+          {% assign product_key = 'product_' | append: i %}
+          {% assign product = all_products[section.settings[product_key]] %}
+          
+          {% if product != blank %}
+            <div class="grid-custom__product" data-product-id="{{ product.id }}">
+              <div class="grid-custom__product-image">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" 
+                       alt="{{ product.title }}"
+                       loading="lazy">
+                {% else %}
+                  <div class="grid-custom__no-image">
+                    <span>No Image</span>
+                  </div>
+                {% endif %}
+                <div class="grid-custom__product-overlay">
+                  <button class="grid-custom__quick-view" 
+                          onclick="openProductPopup({{ product | json }})">
+                    Quick View
+                  </button>
+                </div>
+              </div>
+              
+              <div class="grid-custom__product-info">
+                <h3 class="grid-custom__product-title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                
+                <div class="grid-custom__product-price">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="grid-custom__price-sale">{{ product.price | money }}</span>
+                    <span class="grid-custom__price-compare">{{ product.compare_at_price | money }}</span>
+                  {% else %}
+                    <span class="grid-custom__price">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+                
+                {% if product.available %}
+                  <div class="grid-custom__product-status grid-custom__product-status--available">
+                    In Stock
+                  </div>
+                {% else %}
+                  <div class="grid-custom__product-status grid-custom__product-status--unavailable">
+                    Out of Stock
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% else %}
+            <!-- Empty product block for theme editor -->
+            <div class="grid-custom__product grid-custom__product--empty">
+              <div class="grid-custom__product-placeholder">
+                <div class="grid-custom__placeholder-icon">📦</div>
+                <p>Select a product for block {{ i }}</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>
@@ -131,6 +215,17 @@
     transform: scale(1.08);
   }
   
+  .grid-custom__no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #999;
+    font-size: 0.9rem;
+  }
+  
   .grid-custom__product-overlay {
     position: absolute;
     top: 0;
@@ -193,6 +288,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 8px;
   }
   
   .grid-custom__price {
@@ -211,6 +307,24 @@
     font-size: 0.9rem;
     color: #999;
     text-decoration: line-through;
+  }
+  
+  .grid-custom__product-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-block;
+  }
+  
+  .grid-custom__product-status--available {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  .grid-custom__product-status--unavailable {
+    background: #f8d7da;
+    color: #721c24;
   }
   
   /* Empty product block styling */
@@ -540,6 +654,27 @@
       "id": "subheading",
       "label": "Section Subheading",
       "default": "Discover our latest collection"
+    },
+    {
+      "type": "header",
+      "content": "Product Selection"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_collection",
+      "label": "Use Collection Instead of Individual Products",
+      "default": false,
+      "info": "Select this to display products from a collection instead of individually selected products"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select a collection to display its first 6 products"
+    },
+    {
+      "type": "header",
+      "content": "Individual Products (if not using collection)"
     },
     {
       "type": "product",
