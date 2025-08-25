@@ -16,40 +16,40 @@
       }
     },
     "product_grid": {
-      "type": "product-grid",
+      "type": "shoppable-grid",
       "blocks": {
         "product1": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
         },
         "product2": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
         },
         "product3": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
         },
         "product4": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
         },
         "product5": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
         },
         "product6": {
-          "type": "product",
+          "type": "product_card",
           "settings": {
             "product": ""
           }
@@ -64,7 +64,7 @@
         "product6"
       ],
       "settings": {
-        "title": "Tisso vision in the wild"
+        "heading": "Tisso vision in the wild"
       }
     }
   },
