@@ -211,6 +211,9 @@
         }
       },
       "settings": {
+        "show_collection_hero": true,
+        "hero_heading": "{{ closest.collection.title }}",
+        "hero_subheading": "{{ closest.collection.description }}",
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",

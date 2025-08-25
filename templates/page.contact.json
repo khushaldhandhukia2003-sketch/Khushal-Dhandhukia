@@ -61,6 +61,9 @@
         "content"
       ],
       "settings": {
+        "show_page_hero": true,
+        "page_hero_heading": "{{ closest.page.title }}",
+        "page_hero_subheading": "",
         "content_direction": "column",
         "gap": 32,
         "color_scheme": "",
