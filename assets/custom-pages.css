@@ -1,0 +1,160 @@
+/* Custom styling for collection, contact, about and cart pages */
+
+/* General page styling */
+.page-width-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Collection page styling */
+.collection-wrapper {
+  padding: 30px 0;
+}
+
+.collection-hero {
+  margin-bottom: 40px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.collection-hero__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.collection-hero__subtitle {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.collection-hero__overlay {
+  background: rgba(0,0,0,0.3);
+}
+
+.product-grid-container {
+  padding: 20px 0 60px;
+}
+
+.product-grid__item {
+  transition: transform 0.3s ease;
+}
+
+.product-grid__item:hover {
+  transform: translateY(-5px);
+}
+
+/* About and Contact page styling */
+.page-hero {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  padding: 80px 20px 60px !important;
+  margin-bottom: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.page-hero__title {
+  font-size: 3rem !important;
+  margin-bottom: 20px !important;
+  background: linear-gradient(135deg, #343a40, #495057) !important;
+}
+
+.page-hero__subtitle {
+  font-size: 1.25rem !important;
+  color: #495057 !important;
+  max-width: 700px;
+}
+
+.page-content--prose {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #495057;
+}
+
+.page-content--prose h2 {
+  font-size: 1.8rem;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  color: #343a40;
+}
+
+.page-content--prose p {
+  margin-bottom: 1.5em;
+}
+
+/* Contact form styling */
+.contact-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  margin-top: 30px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  background: #343a40;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.contact-form button:hover {
+  background: #495057;
+}
+
+/* Cart page styling */
+.cart-page {
+  padding: 40px 0;
+}
+
+.cart-page__title {
+  margin-bottom: 30px;
+}
+
+.cart-page__items {
+  margin-bottom: 30px;
+}
+
+.cart-page__items .cart-items {
+  background: white;
+  padding: 20px;
+}
+
+.cart-page__summary {
+  background: white;
+  padding: 25px !important;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 749px) {
+  .page-hero {
+    padding: 60px 20px 40px !important;
+  }
+  
+  .page-hero__title {
+    font-size: 2.2rem !important;
+  }
+  
+  .collection-hero__title {
+    font-size: 2rem;
+  }
+  
+  .cart-page__summary {
+    margin-top: 30px;
+  }
+}

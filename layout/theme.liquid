@@ -10,9 +10,11 @@
   
   <!-- Preload critical resources -->
   <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">
+  <link rel="preload" href="{{ 'custom-pages.css' | asset_url }}" as="style">
   
   <!-- Theme CSS -->
   {{ 'theme.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-pages.css' | asset_url | stylesheet_tag }}
   
   <!-- Shopify required -->
   {{ content_for_header }}
