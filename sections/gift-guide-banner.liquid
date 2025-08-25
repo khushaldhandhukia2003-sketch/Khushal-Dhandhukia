@@ -4,7 +4,7 @@
   - Buttons have hover animations
 {% endcomment %}
 
-<div class="gift-guide-banner">
+<div class="gift-guide-banner" {% if section.settings.background_image != blank %}style="background-image: url('{{ section.settings.background_image | img_url: '2000x' }}'); background-size: cover; background-position: center;"{% endif %}>
   <div class="gift-guide-banner__illustration">
     {{ section.settings.illustration_svg }}
   </div>
@@ -16,12 +16,6 @@
       <div class="gift-guide-banner__tagline-box">
         <div class="gift-guide-banner__tagline">{{ section.settings.tagline }}</div>
       </div>
-      <div class="gift-guide-banner__cta-box">
-        <a href="{{ section.settings.cta_top_link }}" class="gift-guide-banner__button gift-guide-banner__button--yellow">
-          <span>{{ section.settings.cta_top_label }}</span>
-          <span class="gift-guide-banner__arrow">→</span>
-        </a>
-      </div>
     </div>
     
     <div class="gift-guide-banner__content">
@@ -30,6 +24,15 @@
       </div>
       <div class="gift-guide-banner__description-box">
         <div class="gift-guide-banner__description">{{ section.settings.description }}</div>
+      </div>
+    </div>
+    
+    <div class="gift-guide-banner__cta-container">
+      <div class="gift-guide-banner__cta-box">
+        <a href="{{ section.settings.cta_top_link }}" class="gift-guide-banner__button gift-guide-banner__button--yellow">
+          <span>{{ section.settings.cta_top_label }}</span>
+          <span class="gift-guide-banner__arrow">→</span>
+        </a>
       </div>
       <div class="gift-guide-banner__button-box">
         <a href="{{ section.settings.cta_main_link }}" class="gift-guide-banner__button gift-guide-banner__button--black">
@@ -55,6 +58,7 @@
     padding: 40px 0;
     font-family: sans-serif;
     overflow: hidden;
+    background-repeat: no-repeat;
   }
   
   .gift-guide-banner__container {
@@ -210,6 +214,14 @@
     box-shadow: 0 3px 6px rgba(0,0,0,0.1);
   }
   
+  .gift-guide-banner__cta-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 30px 0;
+  }
+  
   .gift-guide-banner__footer {
     margin-top: 20px;
   }
@@ -256,10 +268,15 @@
   "name": "Gift Guide Banner",
   "settings": [
     {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
       "type": "text",
       "id": "brand_text",
       "label": "Brand Text",
-      "default": "TISSO VISON"
+      "default": "BRAND NAME"
     },
     {
       "type": "text",
