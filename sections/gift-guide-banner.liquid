@@ -1,0 +1,358 @@
+{% comment %}
+  Gift Guide Banner Section
+  - All texts in red rectangles are editable from Theme Customizer
+  - Buttons have hover animations
+{% endcomment %}
+
+<div class="gift-guide-banner">
+  <div class="gift-guide-banner__illustration">
+    {{ section.settings.illustration_svg }}
+  </div>
+  <div class="gift-guide-banner__container">
+    <div class="gift-guide-banner__header">
+      <div class="gift-guide-banner__brand-box">
+        <div class="gift-guide-banner__brand">{{ section.settings.brand_text }}</div>
+      </div>
+      <div class="gift-guide-banner__tagline-box">
+        <div class="gift-guide-banner__tagline">{{ section.settings.tagline }}</div>
+      </div>
+      <div class="gift-guide-banner__cta-box">
+        <a href="{{ section.settings.cta_top_link }}" class="gift-guide-banner__button gift-guide-banner__button--yellow">
+          <span>{{ section.settings.cta_top_label }}</span>
+          <span class="gift-guide-banner__arrow">→</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="gift-guide-banner__content">
+      <div class="gift-guide-banner__title-box">
+        <h2 class="gift-guide-banner__title">{{ section.settings.title }}</h2>
+      </div>
+      <div class="gift-guide-banner__description-box">
+        <div class="gift-guide-banner__description">{{ section.settings.description }}</div>
+      </div>
+      <div class="gift-guide-banner__button-box">
+        <a href="{{ section.settings.cta_main_link }}" class="gift-guide-banner__button gift-guide-banner__button--black">
+          <span>{{ section.settings.cta_main_label }}</span>
+          <span class="gift-guide-banner__arrow">→</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="gift-guide-banner__footer">
+      <div class="gift-guide-banner__ticker-box">
+        <div class="gift-guide-banner__ticker">{{ section.settings.ticker_text }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .gift-guide-banner {
+    position: relative;
+    width: 100%;
+    background-color: white;
+    padding: 40px 0;
+    font-family: sans-serif;
+    overflow: hidden;
+  }
+  
+  .gift-guide-banner__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gift-guide-banner__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Red border boxes for editable content */
+  .gift-guide-banner__brand-box,
+  .gift-guide-banner__tagline-box,
+  .gift-guide-banner__cta-box,
+  .gift-guide-banner__title-box,
+  .gift-guide-banner__description-box,
+  .gift-guide-banner__button-box,
+  .gift-guide-banner__ticker-box {
+    border: 2px solid {{ section.settings.border_color }};
+    padding: 5px;
+    margin: 5px 0;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Add a subtle hover effect to the editable boxes */
+  .gift-guide-banner__brand-box:hover,
+  .gift-guide-banner__tagline-box:hover,
+  .gift-guide-banner__cta-box:hover,
+  .gift-guide-banner__title-box:hover,
+  .gift-guide-banner__description-box:hover,
+  .gift-guide-banner__button-box:hover,
+  .gift-guide-banner__ticker-box:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .gift-guide-banner__brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    text-transform: uppercase;
+  }
+  
+  .gift-guide-banner__tagline {
+    font-size: 16px;
+    color: #000;
+  }
+  
+  .gift-guide-banner__illustration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.1;
+  }
+  
+  .gift-guide-banner__content {
+    text-align: left;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .gift-guide-banner__title {
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #000;
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+  
+  .gift-guide-banner__description {
+    font-size: 18px;
+    max-width: 400px;
+    margin-bottom: 20px;
+    color: #000;
+    line-height: 1.5;
+  }
+  
+  .gift-guide-banner__button {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 0;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+  }
+  
+  .gift-guide-banner__button--yellow {
+    background-color: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+  
+  .gift-guide-banner__button--black {
+    background-color: {{ section.settings.secondary_button_color }};
+    color: {{ section.settings.secondary_button_text_color }};
+  }
+  
+  .gift-guide-banner__arrow {
+    margin-left: 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Enhanced button hover animation */
+  .gift-guide-banner__button {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gift-guide-banner__button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: width 0.3s ease;
+    z-index: -1;
+  }
+  
+  .gift-guide-banner__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  }
+  
+  .gift-guide-banner__button:hover::before {
+    width: 100%;
+  }
+  
+  .gift-guide-banner__button:hover .gift-guide-banner__arrow {
+    transform: translateX(8px);
+  }
+  
+  .gift-guide-banner__button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  }
+  
+  .gift-guide-banner__footer {
+    margin-top: 20px;
+  }
+  
+  .gift-guide-banner__ticker {
+    padding: 8px 15px;
+    font-size: 14px;
+    text-align: center;
+    color: #000;
+    text-transform: uppercase;
+  }
+  
+  @media (max-width: 768px) {
+    .gift-guide-banner {
+      padding: 30px 0;
+    }
+    
+    .gift-guide-banner__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+    
+    .gift-guide-banner__tagline-box {
+      width: 100%;
+    }
+    
+    .gift-guide-banner__tagline {
+      text-align: left;
+    }
+    
+    .gift-guide-banner__title {
+      font-size: 36px;
+    }
+    
+    .gift-guide-banner__description {
+      font-size: 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Gift Guide Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand Text",
+      "default": "TISSO VISON"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "cta_top_label",
+      "label": "Top Button Label",
+      "default": "CHOOSE GIFT →"
+    },
+    {
+      "type": "url",
+      "id": "cta_top_link",
+      "label": "Top Button Link"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "text",
+      "id": "cta_main_label",
+      "label": "Main Button Label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "cta_main_link",
+      "label": "Main Button Link"
+    },
+    {
+      "type": "text",
+      "id": "ticker_text",
+      "label": "Footer Ticker Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "html",
+      "id": "illustration_svg",
+      "label": "Illustration SVG",
+      "info": "Add SVG code for the background illustration"
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#FFEB3B"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_color",
+      "label": "Secondary Button Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_button_text_color",
+      "label": "Secondary Button Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
