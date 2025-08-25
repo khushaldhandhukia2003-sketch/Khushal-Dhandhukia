@@ -1,6 +1,22 @@
 
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+{% if section.settings.show_page_hero %}
+  <section class="page-hero">
+    <div class="page-hero__inner">
+      {% if section.settings.page_hero_heading != blank %}
+        <h1 class="page-hero__title">{{ section.settings.page_hero_heading }}</h1>
+      {% else %}
+        <h1 class="page-hero__title">{{ page.title }}</h1>
+      {% endif %}
+      {% if section.settings.page_hero_subheading != blank %}
+        <p class="page-hero__subtitle">{{ section.settings.page_hero_subheading }}</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
 <div class="section page-width-content color-{{ section.settings.color_scheme }}">
   <div
     class="
@@ -9,6 +25,7 @@
       layout-panel-flex--column
       section-content-wrapper
       mobile-column
+      page-content--prose
     "
     style="
       {% render 'layout-panel-style', settings: section.settings %}
@@ -19,78 +36,37 @@
   </div>
 </div>
 
+{% stylesheet %}
+  .page-hero { padding: 56px 20px 24px; text-align: center; }
+  .page-hero__title { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; margin: 0 0 8px; background: linear-gradient(135deg, #1f2937, #4b5563); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .page-hero__subtitle { color: #6b7280; max-width: 800px; margin: 0 auto; }
+
+  .page-content--prose { max-width: 900px; margin-inline: auto; }
+  .page-content--prose :where(h2,h3) { margin-top: 1.5em; }
+  .page-content--prose p { line-height: 1.8; }
+{% endstylesheet %}
+
 {% schema %}
 {
   "name": "t:names.page",
   "class": "section-wrapper",
   "blocks": [
-    {
-      "type": "@theme"
-    },
-    {
-      "type": "@app"
-    },
-    {
-      "type": "_divider"
-    }
+    { "type": "@theme" },
+    { "type": "@app" },
+    { "type": "_divider" }
   ],
-  "disabled_on": {
-    "groups": ["header"]
-  },
+  "disabled_on": { "groups": ["header"] },
   "settings": [
-    {
-      "type": "select",
-      "id": "content_direction",
-      "label": "t:settings.direction",
-      "options": [
-        {
-          "value": "column",
-          "label": "t:options.vertical"
-        }
-      ],
-      "default": "column",
-      "visible_if": "{{ section.settings.gap < 0 }}"
-    },
-    {
-      "type": "range",
-      "id": "gap",
-      "label": "t:settings.gap",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 12
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:settings.color_scheme",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:content.padding"
-    },
-    {
-      "type": "range",
-      "id": "padding-block-start",
-      "label": "t:settings.top",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "padding-block-end",
-      "label": "t:settings.bottom",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "px",
-      "default": 0
-    }
+    { "type": "checkbox", "id": "show_page_hero", "label": "Show page hero", "default": true },
+    { "type": "text", "id": "page_hero_heading", "label": "Hero heading (optional)", "default": "" },
+    { "type": "text", "id": "page_hero_subheading", "label": "Hero subheading (optional)", "default": "" },
+
+    { "type": "select", "id": "content_direction", "label": "t:settings.direction", "options": [{ "value": "column", "label": "t:options.vertical" }], "default": "column", "visible_if": "{{ section.settings.gap < 0 }}" },
+    { "type": "range", "id": "gap", "label": "t:settings.gap", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 12 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" },
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
   ]
 }
 {% endschema %}

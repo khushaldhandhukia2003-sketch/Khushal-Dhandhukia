@@ -24,6 +24,23 @@
 
 {% comment %} We always render this full-width, as the child blocks have width: page/full settings {% endcomment %}
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+
+{% comment %} Optional Collection Hero {% endcomment %}
+{% if section.settings.show_collection_hero %}
+  <section class="collection-hero">
+    <div class="collection-hero__media" style="{% if collection.image %}background-image:url('{{ collection.image | image_url: width: 2400 }}');{% endif %}"></div>
+    <div class="collection-hero__overlay"></div>
+    <div class="collection-hero__content">
+      <h1 class="collection-hero__title">{{ section.settings.hero_heading | default: collection.title }}</h1>
+      {% if section.settings.hero_subheading != blank %}
+        <p class="collection-hero__subtitle">{{ section.settings.hero_subheading }}</p>
+      {% elsif collection.description != blank %}
+        <div class="collection-hero__subtitle rte">{{ collection.description }}</div>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
 <results-list
   class="section product-grid-container color-{{ section.settings.color_scheme }}"
   style="--padding-block-start: {{ section.settings.padding-block-start }}px; --padding-block-end: {{ section.settings.padding-block-end }}px;"
@@ -69,6 +86,57 @@
 </results-list>
 
 {% stylesheet %}
+  .collection-hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl, 24px);
+    margin-inline: auto;
+    width: min(var(--page-width), 1200px);
+    aspect-ratio: 16/6;
+    margin-block: var(--margin-2xl);
+  }
+  .collection-hero__media {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+  }
+  .collection-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.35) 60%, rgba(0,0,0,.6) 100%);
+  }
+  .collection-hero__content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #fff;
+  }
+  .collection-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    background: linear-gradient(135deg, #ffffff, #e5e7eb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .collection-hero__subtitle { max-width: 820px; opacity: .95; }
+
+  /* Product card polish */
+  .product-grid__card {
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .product-grid__card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.12); }
+  .card-gallery img { transition: transform .35s ease; }
+  .product-grid__card:hover .card-gallery img { transform: scale(1.06); }
+
   .main-collection-grid {
     grid-column: var(--grid-column--mobile);
 
@@ -149,6 +217,10 @@
     "templates": ["collection"]
   },
   "settings": [
+    { "type": "checkbox", "id": "show_collection_hero", "label": "Show collection hero", "default": true },
+    { "type": "text", "id": "hero_heading", "label": "Hero heading (optional)", "default": "" },
+    { "type": "text", "id": "hero_subheading", "label": "Hero subheading (optional)", "default": "" },
+
     {
       "type": "select",
       "id": "layout_type",
