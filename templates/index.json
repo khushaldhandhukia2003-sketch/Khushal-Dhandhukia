@@ -1,102 +1,12 @@
 {
   "sections": {
-    "banner": {
-      "type": "banner-custom",
+    "main": {
+      "type": "main-index",
       "settings": {
-        "background_image": "",
-        "heading": "Welcome to Our Store",
-        "subheading": "Discover Amazing Products",
-        "description": "<p>Shop our latest collection of premium products designed for your lifestyle.</p>",
-        "primary_button_text": "Shop Now",
-        "primary_button_link": "/collections/all",
-        "secondary_button_text": "Learn More",
-        "secondary_button_link": "/pages/about"
       }
-    },
-    "featured_products": {
-      "type": "grid-custom",
-      "settings": {
-        "heading": "Featured Products",
-        "subheading": "Discover our latest collection",
-        "product_1": "",
-        "product_2": "",
-        "product_3": "",
-        "product_4": "",
-        "product_5": "",
-        "product_6": ""
-      }
-    },
-    "additional_content": {
-      "type": "rich-text",
-      "settings": {
-        "title": "Welcome to Our Store",
-        "text": "<p>This is a sample page demonstrating the custom Shopify sections we've created. The banner section above showcases editable content with smooth animations, while the product grid below displays exactly six products in a responsive layout.</p>",
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "background-1",
-        "full_width": false
-      }
-    },
-    "features": {
-      "type": "multicolumn",
-      "settings": {
-        "title": "",
-        "heading_size": "h1",
-        "image_width": "full",
-        "columns_desktop": 3,
-        "column_alignment": "center",
-        "background_style": "primary",
-        "button_label": "",
-        "button_link": "",
-        "color_scheme": "background-1",
-        "columns_mobile": "1",
-        "swipe_on_mobile": false,
-        "padding_top": 36,
-        "padding_bottom": 28
-      },
-      "blocks": {
-        "column_1": {
-          "type": "column",
-          "settings": {
-            "image": "",
-            "title": "🎨 Customizable",
-            "text": "<p>All text and images are editable through the Shopify theme editor</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_2": {
-          "type": "column",
-          "settings": {
-            "image": "",
-            "title": "📱 Responsive",
-            "text": "<p>Perfect display on desktop, tablet, and mobile devices</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "column_3": {
-          "type": "column",
-          "settings": {
-            "image": "",
-            "title": "⚡ Fast",
-            "text": "<p>Optimized for performance with vanilla JavaScript</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_1",
-        "column_2",
-        "column_3"
-      ]
     }
   },
   "order": [
-    "banner",
-    "featured_products",
-    "additional_content",
-    "features"
+    "main"
   ]
 }
