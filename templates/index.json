@@ -1,12 +1,75 @@
 {
   "sections": {
-    "main": {
-      "type": "main-index",
+    "banner": {
+      "type": "gift-guide-banner",
       "settings": {
+        "brand_text": "TISSO VISON",
+        "tagline": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR",
+        "title": "The Gift Guide",
+        "description": "Discover Joy: Your Ultimate Holiday Gift Destination.",
+        "cta_top_label": "EXPLORE",
+        "cta_top_link": "/collections/all",
+        "cta_main_label": "SHOP NOW",
+        "cta_main_link": "/collections/all",
+        "ticker_text": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR",
+        "illustration_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 800 400\" style=\"width: 100%; height: auto;\"><g fill=\"none\" stroke=\"#000\" stroke-width=\"1\"><path d=\"M100,100 C150,80 200,120 250,100 S300,60 350,80 S400,120 450,100 S500,60 550,80 S600,120 650,100 S700,60 750,80\"/><rect x=\"200\" y=\"150\" width=\"100\" height=\"150\" rx=\"10\"/><circle cx=\"400\" cy=\"200\" r=\"50\"/><ellipse cx=\"600\" cy=\"200\" rx=\"70\" ry=\"50\"/><line x1=\"100\" y1=\"300\" x2=\"700\" y2=\"300\"/></g></svg>"
+      }
+    },
+    "product_grid": {
+      "type": "product-grid",
+      "blocks": {
+        "product1": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product2": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product3": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product4": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product5": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product6": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product1",
+        "product2",
+        "product3",
+        "product4",
+        "product5",
+        "product6"
+      ],
+      "settings": {
+        "title": "Tisso vision in the wild"
       }
     }
   },
   "order": [
-    "main"
+    "banner",
+    "product_grid"
   ]
 }
